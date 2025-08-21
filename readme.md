@@ -1,12 +1,12 @@
 # StarWars Movies CSV
 
-The application extracts Star Wars movies and their ratings from a CSV file.
+The application extracts StarWars movies and their ratings from a CSV file.
 ## Features
 
-- **Movies:** Retrieve a list of Star Wars movies with details such as title, year, type, poster, price, and active status.
+- **Movies:** Retrieve a list of movies with details such as title, year, type, poster, price, and active status.
 - **Movie Ratings:** Access detailed ratings for each movie, including rating score, release date, runtime, genre, director, language, and metascore.
 - **Movie Lookup:** Search for a specific movie by its unique identifier.
-- **CSV Data Source:** Movie and rating data are loaded from CSV files, making it easy to update or extend the dataset.
+- **CSV Data Source:** Movie and rating data are loaded from a CSV files, making it easy to update or extend the dataset.
 
 ## Project Structure
 
