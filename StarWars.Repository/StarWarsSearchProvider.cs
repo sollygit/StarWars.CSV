@@ -7,12 +7,10 @@ namespace StarWars.Repository
     public class StarWarsSearchProvider
     {
         readonly IEnumerable<Movie> movies;
-        readonly IEnumerable<MovieRating> moviesRatings;
 
         public StarWarsSearchProvider(IEnumerable<Movie> movies, IEnumerable<MovieRating> moviesRatings)
         {
             this.movies = movies;
-            this.moviesRatings = moviesRatings;
 
             // Populate MovieRatings
             foreach (var movie in movies!)
