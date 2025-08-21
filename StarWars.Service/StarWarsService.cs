@@ -37,7 +37,7 @@ namespace StarWars.Service
             try
             {
                 movies = Deserializer.FromCsv<Movie>(configuration["Movies"], new string[] { 
-                    "MovieId", "Title", "Year", "Type", "Poster", "Price", "IsActive" });
+                    "MovieId", "Title", "Year", "Poster", "Price", "IsActive" });
                 moviesRatings = Deserializer.FromCsv<MovieRating>(configuration["MovieRatings"], new string[] { 
                     "MovieId", "Rated", "Released", "Runtime", "Genre", "Director", "Language", "Metascore", "Ratings" })
                     .Where(o => o.Ratings > 0.5m);
