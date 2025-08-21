@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using StarWars.Service;
+using StarWars.Common;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace StarWars.CSV
 {
@@ -17,9 +20,9 @@ namespace StarWars.CSV
             }
         }
 
-        public static async Task MovieRatings()
+        public static async Task MoviesRatings()
         {
-            var ratings = await starwarsService.GetMovieRatings();
+            var ratings = await starwarsService.GetMoviesRatings();
 
             foreach (var rating in ratings)
             {
@@ -30,7 +33,7 @@ namespace StarWars.CSV
         public static async Task Lookup()
         {
             string movieID;
-            Console.Write("Please enter a movie ID:");
+            Console.Write("Please enter a MovieID:");
             while (string.IsNullOrEmpty(movieID = Console.ReadLine()!.Trim()))
             {
                 Console.WriteLine("Your input cannot be empty or whitespace, please try again:");
@@ -40,11 +43,12 @@ namespace StarWars.CSV
 
             if (item == null)
             {
-                Console.WriteLine($"No movie found with ID: {movieID}");
+                Console.WriteLine($"No movie found with ID:{movieID}");
                 return;
             }
 
-            Console.WriteLine(item);
+            var json = JToken.Parse(item.ToJson()).ToString(Formatting.Indented);
+            Console.WriteLine(json);
         }
     }
 }

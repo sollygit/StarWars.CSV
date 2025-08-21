@@ -44,8 +44,8 @@ namespace StarWars.CSV
         {
             menu = new Menu()
                 .Add("Movies", new Action(async () => await StarWars.Movies()))
-                .Add("Movie Ratings", new Action(async () => await StarWars.MovieRatings()))
-                .Add("Lookup", new Action(async () => await StarWars.Lookup()))
+                .Add("Movies Ratings", new Action(async () => await StarWars.MoviesRatings()))
+                .Add("Movies Lookup", new Action(async () => await StarWars.Lookup()))
                 .Add("Exit", () => { exit = true; });
 
             while (!exit)

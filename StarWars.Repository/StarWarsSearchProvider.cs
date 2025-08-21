@@ -7,23 +7,23 @@ namespace StarWars.Repository
     public class StarWarsSearchProvider
     {
         readonly IEnumerable<Movie> movies;
-        readonly IEnumerable<MovieRating> movieRatings;
+        readonly IEnumerable<MovieRating> moviesRatings;
 
-        public StarWarsSearchProvider(IEnumerable<Movie> movies, IEnumerable<MovieRating> movieRatings)
+        public StarWarsSearchProvider(IEnumerable<Movie> movies, IEnumerable<MovieRating> moviesRatings)
         {
             this.movies = movies;
-            this.movieRatings = movieRatings;
+            this.moviesRatings = moviesRatings;
+
+            // Populate MovieRatings
+            foreach (var movie in movies!)
+            {
+                movie.MovieRatings = moviesRatings.Where(r => r.MovieId == movie.MovieId).ToList();
+            }
         }
 
         public Movie Lookup(string movieID)
         {
-            var item = movies.FirstOrDefault(m => m.MovieId == movieID);
-
-            if (item == null) return null!;
-            
-            item.MovieRatings = movieRatings.Where(r => r.MovieId == movieID).ToList();
-            
-            return item;
+            return movies.FirstOrDefault(m => m.MovieId == movieID);
         }
     }
 }

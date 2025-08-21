@@ -13,7 +13,7 @@ namespace StarWars.Service
     public interface IStarWarsService
     {
         Task<IEnumerable<Movie>> GetMovies();
-        Task<IEnumerable<MovieRating>> GetMovieRatings();
+        Task<IEnumerable<MovieRating>> GetMoviesRatings();
         Task<Movie> Lookup(string movieID);
     }
 
@@ -22,7 +22,7 @@ namespace StarWars.Service
         readonly ILogger logger;
         readonly IConfiguration configuration;
         IEnumerable<Movie> movies = null!;
-        IEnumerable<MovieRating> movieRatings = null!;
+        IEnumerable<MovieRating> moviesRatings = null!;
         StarWarsSearchProvider SearchProvider = null!;
 
         public StarWarsService(ILogger<StarWarsService> logger, IConfiguration configuration)
@@ -38,17 +38,11 @@ namespace StarWars.Service
             {
                 movies = Deserializer.FromCsv<Movie>(configuration["Movies"], new string[] { 
                     "MovieId", "Title", "Year", "Type", "Poster", "Price", "IsActive" });
-                movieRatings = Deserializer.FromCsv<MovieRating>(configuration["MovieRatings"], new string[] { 
+                moviesRatings = Deserializer.FromCsv<MovieRating>(configuration["MovieRatings"], new string[] { 
                     "MovieId", "Rated", "Released", "Runtime", "Genre", "Director", "Language", "Metascore", "Ratings" })
                     .Where(o => o.Ratings > 0.5m);
 
-                // Populate MovieRatings for each Movie
-                foreach (var movie in movies)
-                {
-                    movie.MovieRatings = movieRatings.Where(r => r.MovieId == movie.MovieId).ToList();
-                }
-
-                SearchProvider = new StarWarsSearchProvider(movies, movieRatings);
+                SearchProvider = new StarWarsSearchProvider(movies, moviesRatings);
             }
             catch (Exception ex)
             {
@@ -61,9 +55,9 @@ namespace StarWars.Service
             return Task.FromResult(movies);
         }
 
-        public Task<IEnumerable<MovieRating>> GetMovieRatings()
+        public Task<IEnumerable<MovieRating>> GetMoviesRatings()
         {
-            return Task.FromResult(movieRatings);
+            return Task.FromResult(moviesRatings);
         }
 
         public Task<Movie> Lookup(string movieID)
