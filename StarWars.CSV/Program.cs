@@ -29,7 +29,7 @@ namespace StarWars.CSV
         {
             var env = new HostingEnvironment
             {
-                EnvironmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production",
+                EnvironmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "development",
                 ApplicationName = AppDomain.CurrentDomain.FriendlyName,
                 ContentRootPath = AppDomain.CurrentDomain.BaseDirectory,
                 ContentRootFileProvider = new PhysicalFileProvider(AppDomain.CurrentDomain.BaseDirectory)
