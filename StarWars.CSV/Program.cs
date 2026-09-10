@@ -5,6 +5,8 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Logging;
 using StarWars.Service;
+using System;
+using System.IO;
 
 namespace StarWars.CSV
 {

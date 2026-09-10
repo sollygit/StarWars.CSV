@@ -3,6 +3,8 @@ using StarWars.Service;
 using StarWars.Common;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
+using System;
 
 namespace StarWars.CSV
 {

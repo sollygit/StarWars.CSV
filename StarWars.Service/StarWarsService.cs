@@ -19,16 +19,16 @@ namespace StarWars.Service
 
     public class StarWarsService : IStarWarsService
     {
-        readonly ILogger logger;
-        readonly IConfiguration configuration;
+        readonly ILogger _logger;
+        readonly IConfiguration _configuration;
         IEnumerable<Movie> movies = null!;
         IEnumerable<MovieRating> moviesRatings = null!;
         StarWarsSearchProvider SearchProvider = null!;
 
         public StarWarsService(ILogger<StarWarsService> logger, IConfiguration configuration)
         {
-            this.logger = logger;
-            this.configuration = configuration;
+            _logger = logger;
+            _configuration = configuration;
             InitStarWars();
         }
 
@@ -36,9 +36,9 @@ namespace StarWars.Service
         {
             try
             {
-                movies = Deserializer.FromCsv<Movie>(configuration["Movies"], new string[] { 
+                movies = Deserializer.FromCsv<Movie>(_configuration["Movies"], new string[] { 
                     "MovieId", "Title", "Year", "Poster", "Price", "IsActive" });
-                moviesRatings = Deserializer.FromCsv<MovieRating>(configuration["MovieRatings"], new string[] { 
+                moviesRatings = Deserializer.FromCsv<MovieRating>(_configuration["MovieRatings"], new string[] { 
                     "MovieId", "Rated", "Released", "Runtime", "Genre", "Director", "Language", "Metascore", "Ratings" })
                     .Where(o => o.Ratings > 0.5m);
 
@@ -46,7 +46,7 @@ namespace StarWars.Service
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                _logger.LogError(ex.Message);
             }
         }
 
